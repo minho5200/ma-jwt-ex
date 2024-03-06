@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+    <Properties>
+        <Property name="LOG_FORMAT">%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-3level %logger{5} - %msg %n</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_FORMAT}" charset="UTF-8"/>
+        </Console>
+        <RollingFile name="File"
+                     fileName="/data/log/ma_jwt_test/ma_jwt_test-server.log"
+                     filePattern="/data/log/ma_jwt_test/ma_jwt_test-server-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="${LOG_FORMAT}" charset="UTF-8"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" />
+                <SizeBasedTriggeringPolicy size="10000KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="30" fileIndex="min" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File" />
+        </Root>
+    </Loggers>
+</Configuration>
